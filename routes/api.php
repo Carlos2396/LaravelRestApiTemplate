@@ -22,7 +22,11 @@ Route::put('articles/{article}', 'ArticleController@update');
 Route::delete('articles/{article}', 'ArticleController@delete');
 
 Route::group(['middleware' => 'auth:api'], function() {
-    Route::get('articles/{article}', 'ArticleController@show');
+
+    Route::group(['middleware' => 'role:admin'], function () {
+        Route::get('articles/{article}', 'ArticleController@show');
+    });
+    
     Route::get('logout', 'API\Auth\AuthController@logout')->name('logout');
 });
 

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Auth\AuthenticationException;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 class Handler extends ExceptionHandler
 {
@@ -58,6 +59,12 @@ class Handler extends ExceptionHandler
         if($exception instanceof AuthenticationException) {
             return response()->json([
                 'error' => 'The user needs to be authenticated'
+            ], 401);
+        }
+
+        if($exception instanceof UnauthorizedException) {
+            return response()->json([
+                'error' => 'Do not have proper permissions'
             ], 401);
         }
 
