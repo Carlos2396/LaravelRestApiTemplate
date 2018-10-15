@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Helpers\ResponseHelper;
 
 class ArticleController extends Controller
 {
@@ -36,6 +37,12 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Article::validateCreate($request->all());
+
+        if($validator->fails()) {
+            return ResponseHelper::validationErrorResponse($validator->errors());
+        }
+
         $article = Article::create($request->all());
 
         return response()->json($article, 201);
@@ -50,6 +57,12 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
+        $validator = Article::validateUpdate($request->all());
+
+        if($validator->fails()) {
+            return ResponseHelper::validationErrorResponse($validator->errors());
+        }
+
         $article->update($request->all());
 
         return response()->json($article, 200);

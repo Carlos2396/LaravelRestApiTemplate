@@ -52,19 +52,19 @@ class Handler extends ExceptionHandler
     {
         if($exception instanceof ModelNotFoundException) {
             return response()->json([
-                'error' => 'Resource not found'
+                'message' => 'Resource not found'
             ], 404);
         }
 
         if($exception instanceof AuthenticationException) {
             return response()->json([
-                'error' => 'The user needs to be authenticated'
+                'message' => 'The user needs to be authenticated'
             ], 401);
         }
 
         if($exception instanceof UnauthorizedException) {
             return response()->json([
-                'error' => 'Do not have proper permissions'
+                'message' => 'Do not have proper permissions'
             ], 401);
         }
 
