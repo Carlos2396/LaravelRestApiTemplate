@@ -8,7 +8,7 @@ class ResponseHelper
 {
     public static function validationErrorResponse($errors)  {
         $body = [
-            "message" => "Falló validación de datos.",
+            "message" => "Failed data validation",
             "errors" => $errors
         ];
 

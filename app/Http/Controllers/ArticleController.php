@@ -15,7 +15,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return Article::all();
+        return response()->json(Article::all(), 200);
     }
 
     /**
@@ -26,7 +26,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return $article;
+        return response()->json($article, 200);
     }
 
     /**
@@ -37,7 +37,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Article::validateCreate($request->all());
+        $validator = Article::validate($request->all());
 
         if($validator->fails()) {
             return ResponseHelper::validationErrorResponse($validator->errors());
@@ -57,7 +57,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        $validator = Article::validateUpdate($request->all());
+        $validator = Article::validate($request->all());
 
         if($validator->fails()) {
             return ResponseHelper::validationErrorResponse($validator->errors());
@@ -77,7 +77,6 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
-
         return response()->json(null, 204);
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Article;
+use Illuminate\Support\Facades\DB;
 
 class ArticlesTableSeeder extends Seeder
 {
@@ -12,13 +13,21 @@ class ArticlesTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = \Faker\Factory::create();
+        DB::table('articles')->truncate();
 
-        for ($i = 0; $i < 10; $i++) {
-            Article::create([
-                'title' => $faker->sentence,
-                'body' => $faker->paragraph,
-            ]);
+        $articles = [
+            [
+                'title' => "Article 1",
+                'body' => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Mauris dictum facilisis augue. Fusce aliquam vestibulum ipsum. Maecenas sollicitudin."
+            ],
+            [
+                'title' => "Article 2",
+                'body' => "Praesent vitae arcu tempor neque lacinia pretium. Maecenas lorem. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam."
+            ]
+        ];
+
+        foreach($articles as $article) {
+            Article::create($article);
         }
     }
 }

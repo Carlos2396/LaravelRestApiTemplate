@@ -13,23 +13,33 @@ use Illuminate\Http\Request;
 |
 */
 
+/**
+ * Authentication routes
+ */
 Route::post('login', 'API\Auth\AuthController@login')->name('login');
-
-Route::get('articles', 'ArticleController@index');
-// Route::get('articles/{article}', 'ArticleController@show');
-Route::post('articles', 'ArticleController@store');
-Route::put('articles/{article}', 'ArticleController@update');
-Route::delete('articles/{article}', 'ArticleController@delete');
-
-Route::group(['middleware' => 'auth:api'], function() {
-
-    Route::group(['middleware' => 'role:admin'], function () {
-        Route::get('articles/{article}', 'ArticleController@show');
-    });
-    
+Route::group(['middleware' => 'auth:api'], function() { 
     Route::get('logout', 'API\Auth\AuthController@logout')->name('logout');
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+/**
+ * Articles routes
+ */
+Route::get('articles', 'ArticleController@index')->name('articles.list'); 
+Route::post('articles', 'ArticleController@store')->name('articles.store');
+Route::put('articles/{article}', 'ArticleController@update')->name('articles.update');
+Route::delete('articles/{article}', 'ArticleController@destroy')->name('articles.delete');
+Route::get('articles/{article}', 'ArticleController@show')->name('articles.show');
+
+
+/**
+ * Checks for admin role
+ */
+Route::group(['middleware' => 'role:admin'], function () {       
+    
+});
+
+
+Route::any('{catchAll}', function($route) {
+    return response()->json(['message' => 'Not found '.$route], 404);
 });
