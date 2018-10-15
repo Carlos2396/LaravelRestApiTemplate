@@ -19,19 +19,21 @@ class UsersTableSeeder extends Seeder
         // will be too slow.
         $password = Hash::make('secret');
 
-        User::create([
+        $user = User::create([
             'name' => 'Administrator',
             'email' => 'admin@test.com',
             'password' => $password,
         ]);
+        $user->assignRole('admin');
 
         // And now let's generate a few dozen users for our app:
         for ($i = 0; $i < 3; $i++) {
-            User::create([
+            $user = User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
                 'password' => $password,
             ]);
+            $user->assignRole('user');
         }
     }
 }
