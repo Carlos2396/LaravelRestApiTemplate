@@ -1,31 +1,17 @@
-Step 1: First include passport
-    > composer require laravel/passport
+Run 
+    composer install
 
-Step 2: Include the service provider in app.php
-    Laravel\Passport\PassportServiceProvider::class,
+Update the .env file
 
-Step 3: Run migrations
-    php artisan migrate:refresh --seed
+Then migrate the database
+    php artisan migrate --seed
 
-Step 4: Run passport install command
+Then run
     php artisan passport:install
 
-Step 5: 
-    In model we added HasApiTokens class of Passport:
-        use Laravel\Passport\HasApiTokens;
-        ...
-        use HasApiTokens, Notifiable;
-        ...
-    
-    In AuthServiceProvider we added “Passport::routes()”:
-        use Laravel\Passport\Passport;
-        ...
-        boot()
-            Passport::routes();
-        ...
+To run the test, first update the .env.testing file and execute
+    php artisan passport:install --env=testing
+    php artisan migrate --seed --env=testing
 
-    In auth.php, we added api auth configuration.
-        'api' => [ 
-            'driver' => 'passport', 
-            'provider' => 'users', 
-        ], 
+Then run
+    composer test
