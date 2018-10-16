@@ -14,20 +14,29 @@ class AuthController extends Controller
 
         if(Auth::attempt($request->only('email', 'password'))) { 
             $user = Auth::user();
-
-            $success['token'] =  $user->createToken('MyApp')->accessToken; 
-            return response()->json(['success' => $success], 200); 
+            $token =  $user->createToken('MyApp')->accessToken;
+             
+            return response()->json([
+                'user' => $user,
+                'token' => $token
+            ], 200); 
         } 
         else{ 
-            return response()->json(['error'=>'Bad credentials'], 401); 
+            return response()->json(['message'=>'Bad credentials'], 401); 
         } 
     }
 
-    public function logout(Request $request) {
+    public function logout() {
         $user = Auth::user();
         $token = $user->token();
         $token->revoke();
 
-        return response($token, 200);
+        return response(['success' => true], 200);
+    }
+
+    public function check(Request $request) {
+        return response()->json([
+            'authenticated' =>  Auth::check()
+        ], 200);
     }
 }

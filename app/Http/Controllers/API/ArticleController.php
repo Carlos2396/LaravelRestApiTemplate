@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Helpers\ResponseHelper;
+use App\Models\Article;
 
 class ArticleController extends Controller
 {
@@ -14,7 +16,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return Article::all();
+        return response()->json(Article::all(), 200);
     }
 
     /**
@@ -25,7 +27,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return $article;
+        return response()->json($article, 200);
     }
 
     /**
@@ -36,6 +38,12 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Article::validate($request->all());
+
+        if($validator->fails()) {
+            return ResponseHelper::validationErrorResponse($validator->errors());
+        }
+
         $article = Article::create($request->all());
 
         return response()->json($article, 201);
@@ -50,6 +58,12 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
+        $validator = Article::validate($request->all());
+
+        if($validator->fails()) {
+            return ResponseHelper::validationErrorResponse($validator->errors());
+        }
+
         $article->update($request->all());
 
         return response()->json($article, 200);
@@ -64,7 +78,6 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
-
         return response()->json(null, 204);
     }
 }
