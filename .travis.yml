@@ -1,0 +1,19 @@
+os:
+  - linux
+
+language: php
+
+php:
+  - '7.1'
+  
+before_script:
+  - composer self-update
+  - composer install --no-interaction
+  - mysql -e 'create database LaravelAPITesting;'
+  - cp .env.travis .env
+  - php artisan key:generate
+  - php artisan migrate --seed
+  - php artisan passport:install
+  
+script:
+  - composer test
