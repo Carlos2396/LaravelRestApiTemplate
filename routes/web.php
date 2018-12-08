@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::any('{catchAll}', function($route) {
+    return response()->json(['message' => 'Not found '.$route], 404);
 });

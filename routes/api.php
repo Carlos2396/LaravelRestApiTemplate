@@ -35,16 +35,6 @@ Route::group(['namespace' => 'API'], function() {
             Route::get('logout', 'AuthController@logout')->name('logout');
         });
     });
-
-
-    /**
-     * Articles routes
-     */
-    Route::get('articles', 'ArticleController@index')->name('articles.list'); 
-    Route::post('articles', 'ArticleController@store')->name('articles.store');
-    Route::put('articles/{article}', 'ArticleController@update')->name('articles.update');
-    Route::delete('articles/{article}', 'ArticleController@destroy')->name('articles.delete');
-    Route::get('articles/{article}', 'ArticleController@show')->name('articles.show');
 });
 
 /**
