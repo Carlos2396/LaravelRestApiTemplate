@@ -39,7 +39,7 @@ class CreateArticleTest extends TestCase
             );
 
         $response
-            ->assertStatus(400)
+            ->assertStatus(422)
             ->assertExactJson([
                 'message' => 'Failed data validation',
                 'errors' => [
@@ -70,7 +70,7 @@ class CreateArticleTest extends TestCase
             );
 
         $response
-            ->assertStatus(400)
+            ->assertStatus(422)
             ->assertExactJson([
                 'message' => 'Failed data validation',
                 'errors' => [
@@ -100,7 +100,7 @@ class CreateArticleTest extends TestCase
             );
 
         $response
-            ->assertStatus(400)
+            ->assertStatus(422)
             ->assertExactJson([
                 'message' => 'Failed data validation',
                 'errors' => [

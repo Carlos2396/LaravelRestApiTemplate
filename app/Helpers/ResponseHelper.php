@@ -12,6 +12,6 @@ class ResponseHelper
             "errors" => $errors
         ];
 
-        return response()->json($body, 400);
+        return response()->json($body, env('VALIDATION_ERROR_CODE', 422));
     }
 }

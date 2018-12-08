@@ -121,6 +121,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'vec' => env('VALIDATION_ERROR_CODE', 422),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

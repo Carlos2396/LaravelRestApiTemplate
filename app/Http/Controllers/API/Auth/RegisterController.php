@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\EmailVerificationRequest;
 use App\Helpers\ResponseHelper;
+use Illuminate\Support\Facades\Hash;
 use Validator;
+
+use App\User;
 
 class RegisterController extends Controller
 {
     static $rules = [
         'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
+        'email' => 'required|string|max:255|email|unique:users',
         'password' => 'required|string|min:6|max:30|confirmed'
     ];
 
@@ -22,9 +25,9 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function register(Request $request)
     {
-        $validator = Validator::make(self::$rules, $request->all());
+        $validator = Validator::make($request->all(), self::$rules);
 
         if($validator->fails()) {
             return ResponseHelper::validationErrorResponse($validator->errors());
@@ -40,7 +43,7 @@ class RegisterController extends Controller
             $user->notify(new EmailVerificationRequest($user->confirmation_code));
         }
         catch(Exception $e) {
-            return response()->json(null, 504);
+            return response()->json(null, 503);
         }
 
         return response()->json($user, 201);
