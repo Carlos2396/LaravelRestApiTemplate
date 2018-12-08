@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Notifications\EmailVerificationRequest;
 use App\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Hash;
+use Ramsey\Uuid\Uuid;
 use Validator;
 
 use App\User;
@@ -34,6 +35,7 @@ class RegisterController extends Controller
         }
 
         $user = User::create($request->all());
+        $user->confirmation_code = Uuid::uuid1();
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -43,6 +45,7 @@ class RegisterController extends Controller
             $user->notify(new EmailVerificationRequest($user->confirmation_code));
         }
         catch(Exception $e) {
+            $user->delete();
             return response()->json(null, 503);
         }
 
