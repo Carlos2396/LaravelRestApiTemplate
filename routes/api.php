@@ -23,6 +23,10 @@ Route::group(['namespace' => 'API'], function() {
         Route::post('login', 'AuthController@login')->name('login');
         Route::post('register', 'RegisterController@register')->name('register');
         
+        // Forget password routes
+        Route::post('password/create', 'PasswordResetController@create')->name('password.reset.create');
+        Route::post('password/reset', 'PasswordResetController@reset')->name('password.reset');
+
         // Email confirmation routes
         Route::get('verify/{uuid}', 'AccountVerificationController@verifyAccount')->name('verification');
         Route::get('resend/{email}', 'AccountVerificationController@resendVerificationEmail')->name('verification.resend');
