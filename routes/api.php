@@ -35,6 +35,17 @@ Route::group(['namespace' => 'API'], function() {
             Route::get('logout', 'AuthController@logout')->name('logout');
         });
     });
+
+    Route::group(['middleware' => 'auth:api'], function() { 
+        /**
+         * Article routes
+         */
+        Route::get('articles', 'ArticleController@index')->name('articles.list'); 
+        Route::post('articles', 'ArticleController@store')->name('articles.store');
+        Route::get('articles/{article}', 'ArticleController@show')->name('articles.show');
+        Route::put('articles/{article}', 'ArticleController@update')->middleware('can:update-resource,article')->name('articles.update');
+        Route::delete('articles/{article}', 'ArticleController@destroy')->middleware('can:update-resource,article')->name('articles.delete');
+    });
 });
 
 /**

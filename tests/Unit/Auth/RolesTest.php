@@ -72,7 +72,7 @@ class RolesTest extends TestCase
         $response = $this->withHeaders($headers)->get(route('admin.check'));
         
         $response
-            ->assertStatus(401)
+            ->assertStatus(403)
             ->assertExactJson([
                 'message' => 'Do not have proper permissions'
             ]);
