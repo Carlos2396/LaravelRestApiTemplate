@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RolesTableSeeder extends Seeder
 {
@@ -12,7 +13,7 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['guard_name' => 'api', 'name' => 'admin']);
-        Role::create(['guard_name' => 'api', 'name' => 'user']);
+        $admin = Role::create(['guard_name' => 'api', 'name' => 'admin']);
+        $user = Role::create(['guard_name' => 'api', 'name' => 'user']);
     }
 }

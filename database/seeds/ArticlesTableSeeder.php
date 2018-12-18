@@ -18,11 +18,13 @@ class ArticlesTableSeeder extends Seeder
         $articles = [
             [
                 'title' => "Article 1",
-                'body' => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Mauris dictum facilisis augue. Fusce aliquam vestibulum ipsum. Maecenas sollicitudin."
+                'body' => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Mauris dictum facilisis augue. Fusce aliquam vestibulum ipsum. Maecenas sollicitudin.",
+                'user_id' => 1,
             ],
             [
                 'title' => "Article 2",
-                'body' => "Praesent vitae arcu tempor neque lacinia pretium. Maecenas lorem. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam."
+                'body' => "Praesent vitae arcu tempor neque lacinia pretium. Maecenas lorem. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam.",
+                'user_id' => 2,
             ]
         ];
 

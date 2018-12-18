@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 use App\User;
 
 class UsersTableSeeder extends Seeder
@@ -23,6 +24,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Administrator',
             'email' => 'admin@test.com',
             'password' => $password,
+            'email_verified_at' => Carbon::now(),
         ]);
         $admin->assignRole('admin');
 
@@ -30,6 +32,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'User',
             'email' => 'user@test.com',
             'password' => $password,
+            'email_verified_at' => Carbon::now(),
         ]);
         $user->assignRole('user');
     }
